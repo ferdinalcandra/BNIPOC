@@ -1,0 +1,26 @@
+spring:
+  datasource:
+    url: jdbc:sqlserver://10.88.88.141;databaseName=POC_BNI
+    username: sa
+    password: P@ssw0rd
+    hikari:
+      connectionTimeout: 20000
+      maximumPoolSize: 5
+      
+  jpa:
+    hibernate:
+      ddl-auto: none
+    open-in-view: false
+    
+  mvc:
+    view:
+      prefix: /WEB-INF/views/
+      suffix: .jsp
+
+logging:
+  level:
+    org.springframework.web: DEBUG
+    
+server:
+  servlet: 
+    context-path: /dms
