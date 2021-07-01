@@ -29,6 +29,15 @@ define(['app'], function(dmsApp) {
 							params: params
 						}
 					});
+				},
+				bookmarkDocument: function(params) {
+					return $http({
+						method: 'POST',
+						url: 'bookmarkDocument',
+						data: {
+							params: params
+						}
+					});
 				}
 			}
 		});

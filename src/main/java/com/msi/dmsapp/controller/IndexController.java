@@ -18,6 +18,11 @@ public class IndexController {
 		return new ModelAndView("dms/document");
 	}
 	
+	@GetMapping("/bookmark")
+	public ModelAndView bookmark() {
+		return new ModelAndView("dms/bookmark");
+	}	
+	
 	@GetMapping("/")
 	public ModelAndView index() {
 		return new ModelAndView("/dms/document");

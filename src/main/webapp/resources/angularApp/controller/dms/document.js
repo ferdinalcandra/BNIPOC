@@ -165,14 +165,52 @@ define(['app'], function(dmsApp) {
 			}
 			
 			
-			  $scope.viewDocument = function (documentId){
+		  	$scope.viewDocument = function (documentId){
 	      		window.open("./viewDocument?documentId="+documentId+"#toolbar=0",
-  					"_blank",
-  					"toolbar=no,location=no,directories=no, status=no, menubar=no,copyhistory=no,scrollbars=yes,resizable=yes");
-	         };
-			
+					"_blank",
+					"toolbar=no,location=no,directories=no, status=no, menubar=no,copyhistory=no,scrollbars=yes,resizable=yes");
+        	};
 
+			$scope.bookmarkDocument = function(documentId) {
+				ModalService.showModal({
+					templateUrl: "bookmarkDocument.html",
+					controller: "bookmarkDocumentController",
+					inputs: {
+						modalParams: {
+							documentId: documentId
+						}
+					}
+	
+				}).then(function(modal) {
+	
+					modal.element.modal({
+						backdrop: 'static',
+						keyboard: false
+					});
+	
+					modal.close.then(function(result) {
+						if (result.success) {
+							$scope.tableData.action.remove = true;
+	
+							noty({
+								layout: 'bottomRight',
+								theme: 'metroui',
+								type: 'success',
+								text: '<span class="title"><i class="mdi mdi-check-circle"></i>Success</span><br><span> Document has been Bookmarked.</span>',
+								animation: {
+									open: 'animated fadeInUp',
+									close: 'animated fadeOutRight',
+								},
+								timeout: '3000',
+								closeWith: ['hover']
+							});
+						}
+					});
+				});
+			}
 		})
+		
+		
 
 		.controller('insertDocumentController', function($scope,ModalService,$element,modalParams) {
 			var tableData = modalParams.tableData
@@ -381,6 +419,44 @@ define(['app'], function(dmsApp) {
 
 				var params = deleteDocument;
 				documentFactory.deleteDocument(params)
+					.then(function successCallback(response) {
+						$timeout(function() {
+							if (response.data.success) {
+								$timeout(function() {
+									var return_modal_close = {
+										success: true,
+									};
+									$element.modal('hide');
+									close(return_modal_close, 500);
+								}, 500);
+							} else {
+								$scope.display.loading = false;
+								$scope.display.error = true;
+							}
+						}, 500);
+					}, function errorCallback(response) {
+						$scope.display.loading = false;
+						$scope.display.error = true;
+					});
+			}
+
+		})
+		
+		.controller('bookmarkDocumentController', function($scope, documentFactory, modalParams, $timeout, $element, close) {
+			$scope.documentId = modalParams.documentId;
+
+			$scope.display = {
+				confirm: true,
+				loading: false,
+				error: false
+			};
+
+			$scope.btnBookmark = function() {
+				$scope.display.confirm = false;
+				$scope.display.loading = true;
+
+				var params = $scope.documentId;
+				documentFactory.bookmarkDocument(params)
 					.then(function successCallback(response) {
 						$timeout(function() {
 							if (response.data.success) {

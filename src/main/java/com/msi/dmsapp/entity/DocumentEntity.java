@@ -44,6 +44,8 @@ public class DocumentEntity {
 	
 	@Column(name = "doc_image")
 	private byte [] docImage;
-
+	
+	@Column(name = "bookmark")
+	private String bookmark;
 	
 }

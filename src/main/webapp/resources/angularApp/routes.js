@@ -6,11 +6,18 @@ define(['app'], function(dmsApp) {
 			$locationProvider.hashPrefix('');
 			$urlRouterProvider.otherwise('/document');
 			$stateProvider
-				.state('document', {
-					url: 'dms/document',
-					templateUrl: 'dms/document',
-					controller: 'documentController'
-				})
+				.state('document', 
+					{
+						url: 'dms/document',
+						templateUrl: 'dms/document',
+						controller: 'documentController'
+					})
+				.state('bookmark', 
+					{
+						url: 'dms/bookmark',
+						templateUrl: 'dms/bookmark',
+						controller: 'bookmarkController'
+					})
 		}])
 
 });

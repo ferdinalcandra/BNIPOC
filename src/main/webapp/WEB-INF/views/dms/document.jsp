@@ -109,6 +109,21 @@
 																class="btn btn-rounded btn-danger btn-sm btn-icon">
 																<i class="mdi mdi-book-open"></i>
 															</button>
+															<span data-ng-show="doc.bookmark == null">
+																<button type="button"
+																	data-ng-click="bookmarkDocument(doc.documentId)"
+																	class="btn btn-rounded btn-success btn-sm btn-icon" enabled>
+																	<i class="mdi mdi-bookmark-plus"></i>
+																</button>
+															</span>
+															<span data-ng-show="doc.bookmark != null">
+																<button  
+																	type="button"
+																	data-ng-click="bookmarkDocument(doc.documentId)"
+																	class="btn btn-rounded btn-success btn-sm btn-icon" disabled>
+																	<i class="mdi mdi-bookmark-check"></i>
+																</button>
+															</span>
 														</td>
 													</tr>
 												</tbody>
@@ -366,6 +381,48 @@
             <!-- /.modal-dialog -->
         </div>
     </script>
+    
+<script type="text/ng-template" id="bookmarkDocument.html">
+<div class="modal fade" tabindex="-1" role="dialog" id="modalBookmark">
+	<div class="modal-dialog " role="document">
+		<div class="modal-content">
+			<div class="modal-header text-left">
+				<h4>
+					<i class="mdi mdi-bookmark menu-icon text-dark"></i> Bookmark
+					Document
+				</h4>
+			</div>
+			<form name="hierarchyForm" class="form-horizontal">
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-md-12 text-center"
+							data-ng-show="display.confirm">
+							<div class="col-md-12">Are you sure you want to bookmark
+								this Document?</div>
+						</div>
+						<message-loading data-ng-show="display.loading"></message-loading>
+						<message-error data-ng-show="display.error"></message-error>
+					</div>
+				</div>
+			</form>
+			<div class="modal-footer" data-ng-hide="display.loading">
+				<div data-ng-show="display.confirm">
+					<button type="button" data-ng-click="btnBookmark()"
+						class="btn btn-rounded btn-primary btn-sm">
+						<i class="mdi mdi-check"></i> Yes
+					</button>
+					<button data-dismiss="modal" type="button"
+						class="btn btn-rounded btn-danger btn-sm" data-dismiss="modal">
+						<i class="mdi mdi-close"></i> No
+					</button>
+				</div>
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+</script>
 
 
 

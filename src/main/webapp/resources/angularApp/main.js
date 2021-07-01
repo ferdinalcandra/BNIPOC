@@ -50,7 +50,9 @@ require([
 	'./directive/common.directive',
 	'./filter/common.filter',
 	'./controller/dms/document',
-	'./factory/dms/document'
+	'./factory/dms/document',
+	'./controller/dms/bookmark',
+	'./factory/dms/bookmark'
 	],
 	function () {
 		angular.bootstrap(document, ['dmsApp']);

@@ -104,5 +104,16 @@ public class DocumentController {
 		Map<String, Object> returnData = new HashMap<>();
 		return new ResponseEntity<Map<String, Object>>(returnData, HttpStatus.OK);
 	}
+	
+	@PostMapping("/bookmarkDocument")
+	public ResponseEntity<Map<String, Object>> bookmarkDocument(@RequestBody Map<String, Object> params) {
+		String documentId = (String) params.get("params");
+		
+		boolean status = documentService.bookmarkDocument(documentId);
+		
+		Map<String, Object> returnData = new HashMap<>();
+		returnData.put("success", status);
+		return new ResponseEntity<Map<String, Object>>(returnData, HttpStatus.OK);
+	}
 
 }

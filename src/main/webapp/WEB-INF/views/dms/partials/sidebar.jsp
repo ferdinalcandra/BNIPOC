@@ -20,5 +20,10 @@
 				class="menu-title">Document count </span></a>
 		</li>
 		
+		<li class="nav-item"><a class="nav-link" href="bookmark"> <i
+				class="mdi mdi-bookmark menu-icon"></i> <span
+				class="menu-title">Bookmark</span>
+		</a></li>
+		
 	</ul>
 </nav>
