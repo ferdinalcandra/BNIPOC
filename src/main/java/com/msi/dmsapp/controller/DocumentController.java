@@ -1,4 +1,5 @@
 package com.msi.dmsapp.controller;
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -12,7 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -43,23 +43,18 @@ public class DocumentController {
 		returnData.put("total", totalResult);
 		return new ResponseEntity<Map<String, Object>>(returnData, HttpStatus.OK);
 	}
-	
-	  @PostMapping("/insertDocument") public ResponseEntity<Map<String, Object>>
-	  insertDocument( 
-		  @RequestParam(value = "file") MultipartFile  file,
-		  @RequestParam(value = "fileName") String  fileName,
-		  @RequestParam(value = "documentNumber") String  documentNumber,
-		  @RequestParam(value = "documentType") String  documentType) throws IOException { 
-		  
-	  
-		  boolean status = documentService.insertDocument(file,fileName,documentNumber,documentType);
-		  
-		  Map<String, Object> returnData = new HashMap<>();
-		  returnData.put("success", status); 
-		  return new ResponseEntity<Map<String, Object>>(returnData,
-		  HttpStatus.OK); }
 
-	@SuppressWarnings("unchecked")
+	@PostMapping("/insertDocument")
+	public ResponseEntity<Map<String, Object>> insertDocument(@RequestBody Map<String, Object> params) {
+		Map<String, Object> paramsData = (Map<String, Object>) params.get("params");
+		
+		boolean status = documentService.insertDocument(paramsData);
+		
+		Map<String, Object> returnData = new HashMap<>();
+		returnData.put("success", status);
+		return new ResponseEntity<Map<String, Object>>(returnData, HttpStatus.OK);
+	}
+
 	@PostMapping("/editDocument")
 	public ResponseEntity<Map<String, Object>> updateDocument(@RequestBody Map<String, Object> params) {
 		Map<String, Object> paramsData = (Map<String, Object>) params.get("params");
@@ -78,31 +73,38 @@ public class DocumentController {
 		return new ResponseEntity<Map<String, Object>>(returnData, HttpStatus.OK);
 	}
 
-	@SuppressWarnings("unchecked")
 	@PostMapping("/deleteDocument")
 	public ResponseEntity<Map<String, Object>> deleteDocument(@RequestBody Map<String, Object> params) {
-		List<Map<String, Object>> listDeleteDocument = (List<Map<String, Object>>) params.get("params");
-		boolean status = false;
-		if(listDeleteDocument.size() > 0) {
-			for (int i = 0; i < listDeleteDocument.size(); i++) {
-				String documentId = listDeleteDocument.get(i).get("documentId").toString();
-					 status = documentService.deleteDocument(documentId);
-			}
-		}
+		String documentId = (String) params.get("params");
+		
+		boolean status = documentService.deleteDocument(documentId);
+		
 		Map<String, Object> returnData = new HashMap<>();
 		returnData.put("success", status);
 		return new ResponseEntity<Map<String, Object>>(returnData, HttpStatus.OK);
 	}
+
 	
+	/*
+	 * @GetMapping("/viewDocument") public ResponseEntity<Map<String, Object>>
+	 * viewDocument(
+	 * 
+	 * @RequestParam(value = "documentId", required = false) String documentId)
+	 * throws IOException { if(documentId!= null) {
+	 * documentService.viewDocument(documentId); } Map<String, Object> returnData =
+	 * new HashMap<>(); return new ResponseEntity<Map<String, Object>>(returnData,
+	 * HttpStatus.OK); }
+	 */
 	
-	@GetMapping("/viewDocument")
-	public ResponseEntity<Map<String, Object>> viewDocument(
-			@RequestParam(value = "documentId", required = false) String documentId) throws IOException {
-		if(documentId!= null) {
-			documentService.viewDocument(documentId);
-		}
+	@PostMapping("/countDocumentView")
+	public ResponseEntity<Map<String, Object>> countDocumentView(@RequestBody Map<String, Object> params) {
+		Map<String, Object> paramsData = (Map<String, Object>) params.get("params");
+		
+		DocumentEntity documentEntity;
+			documentEntity = documentService.documentCountView(paramsData);
+		
 		Map<String, Object> returnData = new HashMap<>();
+		returnData.put("newDocumentDataCountView", documentEntity);
 		return new ResponseEntity<Map<String, Object>>(returnData, HttpStatus.OK);
 	}
-
 }

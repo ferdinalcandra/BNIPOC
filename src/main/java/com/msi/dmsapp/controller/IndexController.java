@@ -17,6 +17,11 @@ public class IndexController {
 	public ModelAndView document() {
 		return new ModelAndView("dms/document");
 	}
+
+	@GetMapping("/documentCountView")
+	public ModelAndView documentCountView() {
+		return new ModelAndView("dms/documentCountView");
+	}
 	
 	@GetMapping("/")
 	public ModelAndView index() {
