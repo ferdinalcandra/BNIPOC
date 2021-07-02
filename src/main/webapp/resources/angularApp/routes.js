@@ -12,5 +12,7 @@ define(['app'], function(dmsApp) {
 					controller: 'documentController'
 				})
 		}])
+		
+		
 
 });

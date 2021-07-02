@@ -12,24 +12,24 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "document")
+@Table(name = "news")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class DocumentEntity {
+public class NewsEntity {
 	
 	@Id
-	@Column(name = "document_id")
-	private String documentId;
+	@Column(name = "news_id")
+	private String newsId;
 	
-	@Column(name = "document_number")
-	private String documentNumber;
+	@Column(name = "news_number")
+	private String newsNumber;
 	
-	@Column(name = "document_name")
-	private String documentName;
+	@Column(name = "news_title")
+	private String newsTitle;
 	
-	@Column(name = "document_type")
-	private String documentType;
+	@Column(name = "news_information")
+	private String newsInformation;
 	
 	@Column(name = "created_date")
 	private Date createdDate;
@@ -42,5 +42,4 @@ public class DocumentEntity {
 	
 	@Column(name = "modified_by")
 	private String modifiedBy;
-	
 }

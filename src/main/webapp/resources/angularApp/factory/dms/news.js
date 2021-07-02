@@ -2,31 +2,31 @@ define(['app'], function(dmsApp) {
 
 	'use strict';
 
-	angular.module('documentFactoryModule', [])
-		.factory('documentFactory', function($http) {
+	angular.module('newsFactoryModule', [])
+		.factory('newsFactory', function($http) {
 			return {
-				insertDocument: function(params) {
+				insertNews: function(params) {
 					return $http({
 						method: 'POST',
-						url: 'insertDocument',
+						url: 'insertNews',
 						data: {
 							params: params
 						}
 					});
 				},
-				editDocument: function(params) {
+				editNews: function(params) {
 					return $http({
 						method: 'POST',
-						url: 'editDocument',
+						url: 'editNews',
 						data: {
 							params: params
 						}
 					});
 				},
-				deleteDocument: function(params) {
+				deleteNews: function(params) {
 					return $http({
 						method: 'POST',
-						url: 'deleteDocument',
+						url: 'deleteNews',
 						data: {
 							params: params
 						}

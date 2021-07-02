@@ -2,23 +2,11 @@
 	<ul class="nav">
 		<li class="nav-item"><a class="nav-link" href="document"> <i
 				class="mdi mdi-file-document menu-icon"></i> <span
-				class="menu-title">Upload Document</span></a>
-		</li>
-		
-		<li class="nav-item"><a class="nav-link" href="document"> <i
-				class="mdi mdi-file-document menu-icon"></i> <span
-				class="menu-title">View Document</span></a>
-		</li>
-		
-		<li class="nav-item"><a class="nav-link" href="document"> <i
-				class="mdi mdi-file-document menu-icon"></i> <span
-				class="menu-title">News</span></a>
-		</li>
-		
-		<li class="nav-item"><a class="nav-link" href="document"> <i
-				class="mdi mdi-file-document menu-icon"></i> <span
-				class="menu-title">Document count </span></a>
-		</li>
-		
+				class="menu-title">Document</span>
+		</a></li>
+		<li class="nav-item"><a class="nav-link" href="news"> <i
+				class="mdi mdi-newspaper menu-icon"></i> <span
+				class="menu-title">Form News</span>
+		</a></li>
 	</ul>
 </nav>

@@ -31,5 +31,11 @@ public class IndexController {
 			return new ModelAndView("/dms/login");
 		}
 	}
+	
+	@GetMapping("/news")
+	public ModelAndView news() {
+		return new ModelAndView("dms/news");
+	}
+	
 
 }

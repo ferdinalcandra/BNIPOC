@@ -2,11 +2,11 @@
 define(['app'], function(dmsApp) {
 
 	dmsApp
-		.controller('documentController', function($scope, ModalService) {
+		.controller('newsController', function($scope, ModalService) {
 
 			var params = null;
 			$scope.tableData = {
-				url: 'getAllDocuments',
+				url: 'getAllNews',
 				data: [],
 				limit: 10,
 				start: 0,
@@ -29,10 +29,10 @@ define(['app'], function(dmsApp) {
 				$('.message-error').remove();
 			}
 
-			$scope.insertDocument = function() {
+			$scope.insertNews = function() {
 				ModalService.showModal({
-					templateUrl: "insertDocument.html",
-					controller: "insertDocumentController",
+					templateUrl: "insertNews.html",
+					controller: "insertNewsController",
 					inputs: {
 						modalParams: {
 
@@ -51,7 +51,7 @@ define(['app'], function(dmsApp) {
 								layout: 'bottomRight',
 								theme: 'metroui',
 								type: 'success',
-								text: '<span class="title"><i class="mdi mdi-check-circle"></i> Success</span><br><span> Document has been Uploaded.</span>',
+								text: '<span class="title"><i class="mdi mdi-check-circle"></i> Success</span><br><span> News has been Published.</span>',
 								animation: {
 									open: 'animated fadeInUp',
 									close: 'animated fadeOutRight',
@@ -64,13 +64,13 @@ define(['app'], function(dmsApp) {
 				});
 			}
 
-			$scope.editDocument = function(document) {
+			$scope.editNews = function(news) {
 				ModalService.showModal({
-					templateUrl: "editDocument.html",
-					controller: "editDocumentController",
+					templateUrl: "editNews.html",
+					controller: "editNewsController",
 					inputs: {
 						modalParams: {
-							document: document
+							news: news
 						}
 					}
 				}).then(function(modal) {
@@ -81,16 +81,16 @@ define(['app'], function(dmsApp) {
 
 					modal.close.then(function(result) {
 						if (result.success) {
-							document.documentName = result.newDocumentData.documentName;
-							document.documentNumber = result.newDocumentData.documentNumber;
-							document.documentType = result.newDocumentData.documentType;
-							document.modifiedDate = result.newDocumentData.modifiedDate;
-							document.modifiedBy = result.newDocumentData.modifiedBy;
+							news.newsTitle = result.newNewsData.newsTitle;
+							news.newsNumber = result.newNewsData.newsNumber;
+							news.newsInformation = result.newNewsData.newsInformation;
+							news.modifiedDate = result.newNewsData.modifiedDate;
+							news.modifiedBy = result.newNewsData.modifiedBy;
 							noty({
 								layout: 'bottomRight',
 								theme: 'metroui',
 								type: 'success',
-								text: '<span class="title"><i class="mdi mdi-check-circle"></i> Success</span><br><span> Document has been Updated.</span>',
+								text: '<span class="title"><i class="mdi mdi-check-circle"></i> Success</span><br><span> News has been Updated.</span>',
 								animation: {
 									open: 'animated fadeInUp',
 									close: 'animated fadeOutRight',
@@ -103,13 +103,13 @@ define(['app'], function(dmsApp) {
 				});
 			}
 
-			$scope.deleteDocument = function(documentId) {
+			$scope.deleteNews = function(newsId) {
 				ModalService.showModal({
-					templateUrl: "deleteDocument.html",
-					controller: "deleteDocumentController",
+					templateUrl: "deleteNews.html",
+					controller: "deleteNewsController",
 					inputs: {
 						modalParams: {
-							documentId: documentId
+							newsId: newsId
 						}
 					}
 
@@ -128,7 +128,7 @@ define(['app'], function(dmsApp) {
 								layout: 'bottomRight',
 								theme: 'metroui',
 								type: 'success',
-								text: '<span class="title"><i class="mdi mdi-check-circle"></i>Success</span><br><span> Document has been Deleted.</span>',
+								text: '<span class="title"><i class="mdi mdi-check-circle"></i>Success</span><br><span> News has been Deleted.</span>',
 								animation: {
 									open: 'animated fadeInUp',
 									close: 'animated fadeOutRight',
@@ -143,7 +143,7 @@ define(['app'], function(dmsApp) {
 
 		})
 
-		.controller('insertDocumentController', function($scope, documentFactory, $timeout, $element, close) {
+		.controller('insertNewsController', function($scope, newsFactory, $timeout, $element, close) {
 			$scope.display = {
 				form: true,
 				confirm: false,
@@ -151,15 +151,15 @@ define(['app'], function(dmsApp) {
 				error: false
 			};
 
-			$scope.documentData = {
-				"documentName": null,
-				"documentNumber": null,
-				"documentType": null
+			$scope.newsData = {
+				"newsTitle": null,
+				"newsNumber": null,
+				"newsInformation": null
 			}
 
 			$scope.btnSave = function() {
 				$scope.submitted = true;
-				if ($scope.documentForm.$invalid) {
+				if ($scope.newsForm.$invalid) {
 					$scope.display.form = true;
 					$scope.display.confirm = false;
 					return false;
@@ -172,8 +172,8 @@ define(['app'], function(dmsApp) {
 				$scope.display.confirm = false;
 				$scope.display.loading = true;
 
-				var params = $scope.documentData;
-				documentFactory.insertDocument(params)
+				var params = $scope.newsData;
+				newsFactory.insertNews(params)
 					.then(function successCallback(response) {
 						$timeout(function() {
 							if (response.data.success) {
@@ -200,7 +200,7 @@ define(['app'], function(dmsApp) {
 
 		})
 
-		.controller('editDocumentController', function($scope, documentFactory, modalParams, $timeout, $element, close) {
+		.controller('editNewsController', function($scope, newsFactory, modalParams, $timeout, $element, close) {
 			$scope.display = {
 				form: true,
 				confirm: false,
@@ -208,16 +208,16 @@ define(['app'], function(dmsApp) {
 				error: false
 			};
 
-			$scope.documentData = {
-				"documentId": modalParams.document.documentId,
-				"documentName": modalParams.document.documentName,
-				"documentNumber": modalParams.document.documentNumber,
-				"documentType": modalParams.document.documentType
+			$scope.newsData = {
+				"newsId": modalParams.news.newsId,
+				"newsTitle": modalParams.news.newsTitle,
+				"newsNumber": modalParams.news.newsNumber,
+				"newsInformation": modalParams.news.newsInformation
 			}
 
 			$scope.btnEdit = function() {
 				$scope.submitted = true;
-				if ($scope.documentForm.$invalid) {
+				if ($scope.newsForm.$invalid) {
 					$scope.display.form = true;
 					$scope.display.confirm = false;
 					return false;
@@ -230,15 +230,15 @@ define(['app'], function(dmsApp) {
 				$scope.display.confirm = false;
 				$scope.display.loading = true;
 
-				var params = $scope.documentData;
-				documentFactory.editDocument(params)
+				var params = $scope.newsData;
+				newsFactory.editNews(params)
 					.then(function successCallback(response) {
 						$timeout(function() {
 							if (response.data.success) {
 								$timeout(function() {
 									var paramsCloseModal = {
 										success: true,
-										newDocumentData: response.data.newDocumentData
+										newNewsData: response.data.newNewsData
 									};
 									$element.modal('hide');
 									close(paramsCloseModal, 500);
@@ -259,8 +259,8 @@ define(['app'], function(dmsApp) {
 
 		})
 
-		.controller('deleteDocumentController', function($scope, documentFactory, modalParams, $timeout, $element, close) {
-			$scope.documentId = modalParams.documentId;
+		.controller('deleteNewsController', function($scope, newsFactory, modalParams, $timeout, $element, close) {
+			$scope.newsId = modalParams.newsId;
 
 			$scope.display = {
 				confirm: true,
@@ -272,8 +272,8 @@ define(['app'], function(dmsApp) {
 				$scope.display.confirm = false;
 				$scope.display.loading = true;
 
-				var params = $scope.documentId;
-				documentFactory.deleteDocument(params)
+				var params = $scope.newsId;
+				newsFactory.deleteNews(params)
 					.then(function successCallback(response) {
 						$timeout(function() {
 							if (response.data.success) {

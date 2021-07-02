@@ -16,15 +16,16 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.msi.dmsapp.entity.DocumentEntity;
-import com.msi.dmsapp.service.DocumentService;
+import com.msi.dmsapp.entity.NewsEntity;
+import com.msi.dmsapp.service.NewsService;
 
 @RestController
-public class DocumentController {
-
+public class NewsController {
+	
 	@Autowired
-	private DocumentService documentService;
+	private NewsService newsService;
 
-	@GetMapping("/getAllDocuments")
+	@GetMapping("/getAllNews")
 	public ResponseEntity<Map<String, Object>> findAll(@RequestParam(value = "limit", required = false) String limit,
 			@RequestParam(value = "start", required = false) String start,
 			@RequestParam(value = "page", required = false) String page,
@@ -33,54 +34,53 @@ public class DocumentController {
 			@RequestParam(value = "search", required = false) String search) throws JsonMappingException, JsonProcessingException {
 		Map<String, Object> returnData = new HashMap<>();
 		
-		List<DocumentEntity> documentList = documentService.findAll(search, Integer.valueOf(page), Integer.valueOf(limit));
+		List<NewsEntity> newsList = newsService.findAll(search, Integer.valueOf(page), Integer.valueOf(limit));
 		
-		Number totalResult = documentService.getTotalData(search);
+		Number totalResult = newsService.getTotalData(search);
 
 		returnData.put("success", true);
-		returnData.put("tableResult", documentList);
+		returnData.put("tableResult", newsList);
 		returnData.put("total", totalResult);
 		return new ResponseEntity<Map<String, Object>>(returnData, HttpStatus.OK);
 	}
-
-	@PostMapping("/insertDocument")
-	public ResponseEntity<Map<String, Object>> insertDocument(@RequestBody Map<String, Object> params) {
+	
+	@PostMapping("/insertNews")
+	public ResponseEntity<Map<String, Object>> insertNews(@RequestBody Map<String, Object> params) {
 		Map<String, Object> paramsData = (Map<String, Object>) params.get("params");
 		
-		boolean status = documentService.insertDocument(paramsData);
+		boolean status = newsService.insertNews(paramsData);
 		
 		Map<String, Object> returnData = new HashMap<>();
 		returnData.put("success", status);
 		return new ResponseEntity<Map<String, Object>>(returnData, HttpStatus.OK);
 	}
-
-	@PostMapping("/editDocument")
-	public ResponseEntity<Map<String, Object>> updateDocument(@RequestBody Map<String, Object> params) {
+	
+	@PostMapping("/editNews")
+	public ResponseEntity<Map<String, Object>> updateNews(@RequestBody Map<String, Object> params) {
 		Map<String, Object> paramsData = (Map<String, Object>) params.get("params");
 		
 		boolean status = false;
-		DocumentEntity documentEntity = null;
+		NewsEntity newsEntity = null;
 		try {
-			documentEntity = documentService.updateDocument(paramsData);
+			newsEntity = newsService.updateNews(paramsData);
 			status = true;
 		} catch (Exception e) {
 			e.getMessage();
 		}
 		Map<String, Object> returnData = new HashMap<>();
 		returnData.put("success", status);
-		returnData.put("newDocumentData", documentEntity);
+		returnData.put("newNewsData", newsEntity);
 		return new ResponseEntity<Map<String, Object>>(returnData, HttpStatus.OK);
 	}
-
-	@PostMapping("/deleteDocument")
-	public ResponseEntity<Map<String, Object>> deleteDocument(@RequestBody Map<String, Object> params) {
-		String documentId = (String) params.get("params");
+	
+	@PostMapping("/deleteNews")
+	public ResponseEntity<Map<String, Object>> deleteNews(@RequestBody Map<String, Object> params) {
+		String newsId = (String) params.get("params");
 		
-		boolean status = documentService.deleteDocument(documentId);
+		boolean status = newsService.deleteNews(newsId);
 		
 		Map<String, Object> returnData = new HashMap<>();
 		returnData.put("success", status);
 		return new ResponseEntity<Map<String, Object>>(returnData, HttpStatus.OK);
 	}
-
 }

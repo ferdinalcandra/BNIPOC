@@ -1,11 +1,9 @@
 package com.msi.dmsapp.service;
 
-import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
@@ -14,7 +12,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -29,7 +26,6 @@ public class DocumentService {
 	@Autowired
 	private DocumentRepository documentRepository;
 
-	@SuppressWarnings("unchecked")
 	public List<DocumentEntity> findAll(String search, int page, int limit) throws JsonMappingException, JsonProcessingException {
 		String documentName = "";
 		String documentNumber = "";
@@ -65,18 +61,16 @@ public class DocumentService {
         return pagedResult.getContent();
 	}
 
-	public boolean insertDocument(MultipartFile file,String fileName,String documentNumber,String documentType) throws IOException  {
+	public boolean insertDocument(Map<String, Object> paramsData) {
 		boolean status = false;
 		try {
 			DocumentEntity documentEntity = new DocumentEntity();
-			 documentEntity.setDocumentName(fileName);
-			 documentEntity.setDocumentNumber(documentNumber);
-			 documentEntity.setDocumentType(documentType);
-			 
-			 documentEntity.setDocImage(file.getBytes());
-			 documentEntity.setCreatedDate(new Date());
-			 documentEntity.setCreatedBy("admin");
-			 documentEntity.setDocumentId(UUID.randomUUID().toString());
+			documentEntity.setDocumentName(paramsData.get("documentName").toString());
+			documentEntity.setDocumentNumber(paramsData.get("documentNumber").toString());
+			documentEntity.setDocumentType(paramsData.get("documentType").toString());
+			documentEntity.setCreatedDate(new Date());
+			documentEntity.setCreatedBy("admin");
+			documentEntity.setDocumentId(UUID.randomUUID().toString());
 			
 			documentRepository.save(documentEntity);
 			status = true;
@@ -117,7 +111,6 @@ public class DocumentService {
 			Map<String, Object> mapSearch = mapper.readValue(search, new TypeReference<Map<String, Object>>() {
 			});
 			if (mapSearch.get("data") != null) {
-				@SuppressWarnings("unchecked")
 				Map<String, Object> mapSearchData = (Map<String, Object>) mapSearch.get("data");
 				
 				documentName = (mapSearchData.get("documentName") != null) ? mapSearchData.get("documentName").toString() : "";
@@ -139,14 +132,5 @@ public class DocumentService {
 		
 		return documentRepository.count(documentExample);
 	}
-	
-	public void  viewDocument (String documentId) {
-		DocumentEntity document = documentRepository.findByDocumentId(documentId);
-		//byte [] documentByte = document.getDocImage();
-		
-	}
-	
-	
-	
 	
 }
