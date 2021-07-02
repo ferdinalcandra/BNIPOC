@@ -156,9 +156,10 @@
 									<input type="text" class="form-control form-control-sm" data-ng-model="documentData.documentName" name="documentName" placeholder="Document Name" required />
 									<div data-ng-cloak data-ng-show="documentForm.documentName.$error.required && submitted" class="col-xs-12 msg-error"><i class="mdi mdi-close-circle"></i> Please, fill this field </div>
 								</div>
-								<button type="button" ngf-select="btnUploadDocument($files)" class="btn btn-danger btn-xs"><i class="fa fa-folder-open"></i> Browse</button>
-							</div>
-							
+								<div class="col-sm-1">
+									<button type="button" ngf-select="btnUploadDocument($files)" class="btn btn-danger btn-sm"><i class="mdi mdi-dots-horizontal"></i></button>
+								</div>
+							</div>							
 							<div class="form-group row">
 								<label for="inputDocumentNumber" class="col-sm-3 col-form-label">Document Number</label>
 								<div class="col-sm-9">
