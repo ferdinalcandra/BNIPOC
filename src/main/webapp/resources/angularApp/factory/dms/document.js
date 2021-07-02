@@ -9,7 +9,9 @@ define(['app'], function(dmsApp) {
 					return $http({
 						method: 'POST',
 						url: 'insertDocument',
-							params: params		
+						data: {
+							params: params
+						}
 					});
 				},
 				editDocument: function(params) {
@@ -25,6 +27,15 @@ define(['app'], function(dmsApp) {
 					return $http({
 						method: 'POST',
 						url: 'deleteDocument',
+						data: {
+							params: params
+						}
+					});
+				},
+				countDocumentView: function(params) {
+					return $http({
+						method: 'POST',
+						url: 'countDocumentView',
 						data: {
 							params: params
 						}
