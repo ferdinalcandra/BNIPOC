@@ -1,4 +1,5 @@
 package com.msi.dmsapp.entity;
+
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -41,9 +42,11 @@ public class DocumentEntity {
 	
 	@Column(name = "modified_by")
 	private String modifiedBy;
-	
-	@Column(name = "doc_image")
-	private byte [] docImage;
 
-	
+	@Column(name = "document_count_view")
+	private String documentCountView;
+
+	@Column(name = "last_view")
+	private Date lastView;
+
 }
