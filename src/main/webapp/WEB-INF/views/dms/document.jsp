@@ -21,14 +21,17 @@
 										Document List
 									</h4>
 
-									<form  class="forms-horizontal" style="margin-top: 30px; margin-bottom: 30px">
+									<form class="forms-sample"
+										style="margin-top: 30px; margin-bottom: 30px">
 										<div class="form-group row">
-											<label for="inputDocumentName" class="col-sm-2 col-form-label">Document Name</label>
+											<label for="inputDocumentName"
+												class="col-sm-2 col-form-label">Document Name</label>
 											<div class="col-sm-4">
-												<input type="text" class="form-control form-control-sm" data-ng-model="tableData.search.data.documentName" placeholder="Document Name">
+												<input type="text" class="form-control form-control-sm"
+													data-ng-model="tableData.search.data.documentName"
+													placeholder="Document Name">
 											</div>
 										</div>
-										
 										<div class="form-group row">
 											<label for="inputDocumentNumber"
 												class="col-sm-2 col-form-label">Document Number</label>
@@ -61,11 +64,6 @@
 													data-ng-click="insertDocument()">
 													<i class="mdi mdi-upload"></i> New Document
 												</button>
-												<button type="submit"
-													class="btn btn-rounded btn-sm btn-success"
-													data-ng-click="deleteDocument()">
-													<i class="mdi mdi-delete"></i> Delete Document
-												</button>
 											</div>
 										</div>
 									</form>
@@ -77,37 +75,57 @@
 												class="table table-striped table-hover table-bordered no-margin">
 												<thead>
 													<tr>
-														<th><input type="checkbox" data-ng-model="header.selectedCheck" data-ng-click="headerCheckBox()"/></th>
 														<th class="text-center column-10">Document Name</th>
 														<th class="text-center column-10">Document Number</th>
 														<th class="text-center column-10">Document Type</th>
 														<th class="text-center column-10">Created Date</th>
-														 <th class="text-center column-10">Created By</th>
-														<!-- <th class="text-center column-10">Modified Date</th> 
-														<th class="text-center column-10">Modified By</th> -->
+														<th class="text-center column-10">Created By</th>
+														<th class="text-center column-10">Modified Date</th>
+														<th class="text-center column-10">Modified By</th>
 														<th class="text-center column-10">Action</th>
 													</tr>
 												</thead>
 												<tbody data-ng-cloak>
 													<tr data-ng-repeat="doc in tableData.data">
-														<td><input data-ng-model="doc.checkStatus" type="checkbox"> </td>
-														<td class="column-10 text-left"><span data-ng-show="doc.documentName != null">{{doc.documentName}}</span><span data-ng-show="doc.documentName == null">-</span></td>
-														<td class="column-10 text-left"><span data-ng-show="doc.documentNumber != null">{{doc.documentNumber}}</span><span data-ng-show="doc.documentNumber  == null">-</span></td>
-														<td class="column-10 text-left"><span data-ng-show="doc.documentType != null">{{doc.documentType}}</span><span data-ng-show="doc.documentType  == null">-</span></td>
-														<td class="column-10 text-left"><span data-ng-show="doc.createdDate != null">{{doc.createdDate | date : "dd/MM/yyyy" }}</span> <spandata-ng-show="doc.createdDate  == null">-</span></td>
-														<td class="column-10 text-left"><span data-ng-show="doc.createdBy != null">{{doc.createdBy}}</span><span data-ng-show="doc.createdBy  == null">-</span></td>
-														<!-- <td class="column-10 text-left"><span data-ng-show="doc.modifiedDate != null">{{doc.modifiedDate | date : "dd/MM/yyyy" }}</span> <spandata-ng-show="doc.modifiedDate  == null">-</span></td>
-														<td class="column-10 text-left"><span data-ng-show="doc.modifiedBy != null">{{doc.modifiedBy}}</span><span data-ng-show="doc.modifiedBy  == null">-</span></td> -->
+														<td class="column-10 text-left"><span
+															data-ng-show="doc.documentName != null">{{doc.documentName}}</span>
+															<span data-ng-show="doc.documentName == null">-</span></td>
+														<td class="column-10 text-left"><span
+															data-ng-show="doc.documentNumber != null">{{doc.documentNumber}}</span>
+															<span data-ng-show="doc.documentNumber  == null">-</span>
+														</td>
+														<td class="column-10 text-left"><span
+															data-ng-show="doc.documentType != null">{{doc.documentType}}</span>
+															<span data-ng-show="doc.documentType  == null">-</span></td>
+														<td class="column-10 text-left"><span
+															data-ng-show="doc.createdDate != null">{{doc.createdDate
+																| date : "dd/MM/yyyy" }}</span> <span
+															data-ng-show="doc.createdDate  == null">-</span></td>
+														<td class="column-10 text-left"><span
+															data-ng-show="doc.createdBy != null">{{doc.createdBy}}</span>
+															<span data-ng-show="doc.createdBy  == null">-</span></td>
+														<td class="column-10 text-left"><span
+															data-ng-show="doc.modifiedDate != null">{{doc.modifiedDate
+																| date : "dd/MM/yyyy" }}</span> <span
+															data-ng-show="doc.modifiedDate  == null">-</span></td>
+														<td class="column-10 text-left"><span
+															data-ng-show="doc.modifiedBy != null">{{doc.modifiedBy}}</span>
+															<span data-ng-show="doc.modifiedBy  == null">-</span></td>
 														<td class="column-10 text-center">
-															<!-- <button type="button"
+															<button type="button"
 																data-ng-click="editDocument(doc)"
 																class="btn btn-rounded btn-info btn-sm btn-icon">
 																<i class="mdi mdi mdi-pencil-box-outline"></i>
-															</button> -->
-															 <button type="button"
-																data-ng-click="viewDocument(doc.documentId)"
+															</button>
+															<button type="button"
+																data-ng-click="deleteDocument(doc.documentId)"
 																class="btn btn-rounded btn-danger btn-sm btn-icon">
-																<i class="mdi mdi-book-open"></i>
+																<i class="mdi mdi-delete-forever"></i>
+															</button>
+															<button type="button"
+																data-ng-click="viewDocument(doc)"
+																class="btn btn-rounded btn-info btn-sm btn-icon">
+																<i class="mdi mdi-eye"></i>
 															</button>
 														</td>
 													</tr>
@@ -128,34 +146,42 @@
 	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
 			 <div class="modal-header text-left">
-                  <h4><i class="mdi mdi-file-document menu-icon text-dark"></i>New Document</h4>
-             </div>
+                  <h4><i class="mdi mdi-file-document menu-icon text-dark"></i>
+						New Document
+				  </h4>
+              </div>
 			<div class="modal-body">
 				<div class="row">
 					<div class="col-md-12" data-ng-show="display.form">   
-						<form  name="documentForm" class="form-horizontal" style="margin-top: 30px; margin-bottom: 30px">
-
-							 <div class="form-group row">
-								<label for="inputDocumentName" class="col-sm-3 col-form-label">Upload Document</label>
-								<div class="col-sm-6">
-									<input type="text" class="form-control form-control-sm" data-ng-model="documentData.documentName" name="documentName" placeholder="Document Name" required />
+						<form name="documentForm" class="form-horizontal"
+							style="margin-top: 30px; margin-bottom: 30px">
+							<div class="form-group row">
+								<label for="inputDocumentName"
+									class="col-sm-3 col-form-label">Document Name</label>
+								<div class="col-sm-9">
+									<input type="text" class="form-control form-control-sm"
+										data-ng-model="documentData.documentName" name="documentName"
+										placeholder="Document Name" required />
 									<div data-ng-cloak data-ng-show="documentForm.documentName.$error.required && submitted" class="col-xs-12 msg-error"><i class="mdi mdi-close-circle"></i> Please, fill this field </div>
 								</div>
-								<button type="button" ngf-select="btnUploadDocument($files)" class="btn btn-danger btn-xs"><i class="fa fa-folder-open"></i> Browse</button>
 							</div>
-							
 							<div class="form-group row">
-								<label for="inputDocumentNumber" class="col-sm-3 col-form-label">Document Number</label>
+								<label for="inputDocumentNumber"
+									class="col-sm-3 col-form-label">Document Number</label>
 								<div class="col-sm-9">
-									<input type="text" class="form-control form-control-sm" data-ng-model="documentData.documentNumber" name="documentNumber" placeholder="Document Number" required />
+									<input type="text" class="form-control form-control-sm"
+										data-ng-model="documentData.documentNumber" name="documentNumber"
+										placeholder="Document Number" required />
 									<div data-ng-cloak data-ng-show="documentForm.documentNumber.$error.required && submitted" class="col-xs-12 msg-error"><i class="mdi mdi-close-circle"></i> Please, fill this field </div>
 								</div>
 							</div>
-							
 							<div class="form-group row">
-								<label for="inputDocumentType" class="col-sm-3 col-form-label">Document Type</label>
+								<label for="inputDocumentType"
+									class="col-sm-3 col-form-label">Document Type</label>
 								<div class="col-sm-9">
-									<input type="text" class="form-control form-control-sm" data-ng-model="documentData.documentType" name="documentType" placeholder="Document Type" required />
+									<input type="text" class="form-control form-control-sm"
+										data-ng-model="documentData.documentType" name="documentType"
+										placeholder="Document Type" required />
 									<div data-ng-cloak data-ng-show="documentForm.documentType.$error.required && submitted" class="col-xs-12 msg-error"><i class="mdi mdi-close-circle"></i> Please, fill this field </div>
 								</div>
 							</div>
@@ -334,41 +360,119 @@
 </script>
 
 
-<script type="text/ng-template" id="modalUploadBrowse.html">
-        <div class="modal fade" tabindex="-1" role="dialog">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header text-left">
-                        <h4 class="modal-title"><i class="fa fa-spinner fa-pulse"></i> Upload </h4>
-                    </div>
-                    <div class="modal-body text-left">
-                        <div class="row">
-							<div class="col-md-12 text-center" data-ng-show="display.loading">
-                                <div class="progress progress-striped active no-margin">
-									<div class="progress-bar progress-bar-danger" data-ng-style="{'width': bar.progress + '%'}">
-										<span data-ng-style="bar.progress == 0 ? { 'color':'black' } : {'color':'white'}">{{bar.message}}</span>
-									</div>
+<script type="text/ng-template" id="viewDocument.html"> 
+<div class="modal fade" tabindex="-1" role="dialog" id="modalView">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			 <div class="modal-header text-left">
+                  <h4><i class="mdi mdi-eye text-dark"></i>
+						View Document
+				  </h4>
+              </div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-md-12" data-ng-show="display.form">   
+						<form name="documentForm" class="form-horizontal"
+							style="margin-top: 30px; margin-bottom: 30px">
+							<div class="form-group row">
+								<label for="inputDocumentName"
+									class="col-sm-3 col-form-label">Document ID</label>
+								<div class="col-sm-9">
+									<input type="text" class="form-control form-control-sm"
+										data-ng-model="documentData.documentId" name="documentId" readonly />
 								</div>
-                            </div>
-							<message-error data-ng-show="display.error"></message-error>
-                        </div>
-                    </div>
-                    <div class="modal-footer" data-ng-hide="display.loading">
-						<div data-ng-show="display.error">
-                        	<button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">
-                            	<i class="fa fa-close"></i> Close
-                        	</button>
-						</div>
-                    </div>
-                </div>
-                <!-- /.modal-content -->
-            </div>
-            <!-- /.modal-dialog -->
-        </div>
-    </script>
-
-
-
+							</div>
+							<div class="form-group row">
+								<label for="inputDocumentName"
+									class="col-sm-3 col-form-label">Document Name</label>
+								<div class="col-sm-9">
+									<input type="text" class="form-control form-control-sm"
+										data-ng-model="documentData.documentName" name="documentName" readonly />
+								</div>
+							</div>
+							<div class="form-group row">
+								<label for="inputDocumentNumber"
+									class="col-sm-3 col-form-label">Document Number</label>
+								<div class="col-sm-9">
+									<input type="text" class="form-control form-control-sm"
+										data-ng-model="documentData.documentNumber" name="documentNumber" readonly />
+								</div>
+							</div>
+							<div class="form-group row">
+								<label for="inputDocumentType"
+									class="col-sm-3 col-form-label">Document Type</label>
+								<div class="col-sm-9">
+									<input type="text" class="form-control form-control-sm"
+										data-ng-model="documentData.documentType" name="documentType" readonly />
+								</div>
+							</div>
+							<div class="form-group row">
+								<label for="inputDocumentType"
+									class="col-sm-3 col-form-label">Created By</label>
+								<div class="col-sm-9">
+									<input type="text" class="form-control form-control-sm"
+										data-ng-model="documentData.createdBy" name="createdBy" readonly />
+								</div>
+							</div>
+							<div class="form-group row">
+								<label for="inputDocumentType"
+									class="col-sm-3 col-form-label">Created Date</label>
+								<div class="col-sm-9">
+									<input type="text" class="form-control form-control-sm"
+										data-ng-model="documentData.createdDate" name="createdDate" readonly />
+								</div>
+							</div>
+							<div class="form-group row">
+								<label for="inputDocumentType"
+									class="col-sm-3 col-form-label">Modified By</label>
+								<div class="col-sm-9">
+									<input type="text" class="form-control form-control-sm"
+										data-ng-model="documentData.modifiedBy" name="modifiedBy" readonly />
+								</div>
+							</div>
+							<div class="form-group row">
+								<label for="inputDocumentType"
+									class="col-sm-3 col-form-label">Modified Date</label>
+								<div class="col-sm-9">
+									<input type="text" class="form-control form-control-sm"
+										data-ng-model="documentData.modifiedDate" name="modifiedDate" readonly />
+								</div>
+							</div>
+							<div class="form-group row">
+								<label for="inputDocumentType"
+									class="col-sm-3 col-form-label">Document Count View</label>
+								<div class="col-sm-9">
+									<input type="text" class="form-control form-control-sm"
+										data-ng-model="documentData.documentCountView" name="documentCountView" readonly />
+								</div>
+							</div>
+							<div class="form-group row">
+								<label for="inputDocumentType"
+									class="col-sm-3 col-form-label">Last View</label>
+								<div class="col-sm-9">
+									<input type="text" class="form-control form-control-sm"
+										data-ng-model="documentData.lastView" name="lastView" readonly />
+								</div>
+							</div>
+						</form>
+				    </div>
+					
+				</div>
+			</div>
+			<div class="modal-footer" data-ng-hide="display.loading">
+				<div data-ng-show="display.form">
+					<button data-ng-click="btnView()" button type="button" class="btn btn-rounded btn-danger btn-sm"
+						data-dismiss="modal">
+						<i class="mdi mdi-close"></i> Close
+					</button>
+				</div>
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+</script>
 
 				<!-- partial:partials/_footer.html -->
 				<jsp:include page="partials/footer.jsp" />
