@@ -4,7 +4,7 @@ define(['app'], function(dmsApp) {
 		function($httpProvider, $locationProvider, $stateProvider, $urlRouterProvider) {
 			//ANGULAR ROUTE
 			$locationProvider.hashPrefix('');
-			$urlRouterProvider.otherwise('/document');
+			/*$urlRouterProvider.otherwise('/document');*/
 			$stateProvider
 				.state('document', {
 					url: 'dms/document',

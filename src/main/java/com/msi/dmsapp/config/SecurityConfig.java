@@ -9,6 +9,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.stereotype.Component;
 
@@ -26,17 +27,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.csrf().disable().authorizeRequests()
-	      .antMatchers("/login").permitAll()
-	      .antMatchers("/resources/**").permitAll()
-          .antMatchers("/*.js").permitAll()
-          .antMatchers("/*.css").permitAll().anyRequest().authenticated().and().formLogin().loginPage("/login")
-				.defaultSuccessUrl("/", true).and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
+		http.csrf().disable().authorizeRequests().antMatchers("/login").permitAll().antMatchers("/resources/**")
+				.permitAll().antMatchers("/*.js").permitAll().antMatchers("/*.css").permitAll().anyRequest()
+				.authenticated().and().formLogin().loginPage("/login").successHandler(successHandler()).and().logout()
+				.logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
 	}
-	
+
 	public boolean isLogged() {
-        final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return null != authentication && !("anonymousUser").equals(authentication.getName());
-    }
+		final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		return null != authentication && !("anonymousUser").equals(authentication.getName());
+	}
+
+	@Bean
+	public AuthenticationSuccessHandler successHandler() {
+		return new CustomLoginSuccessHandler("/");
+	}
 
 }
