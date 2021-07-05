@@ -53,9 +53,7 @@ require([
 	'./factory/dms/document',
 	'./controller/dms/news',
 	'./factory/dms/news',
-	'./controller/dms/exam',
-	'./controller/dms/news',
-	'./factory/dms/exam'
+	'./controller/dms/news'
 	],
 	function () {
 		angular.bootstrap(document, ['dmsApp']);
