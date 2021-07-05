@@ -2,8 +2,8 @@
 define(['app'], function(dmsApp) {
 
 	dmsApp
-		.controller('documentController', function($scope, ModalService) {
-
+		.controller('documentController', function($scope, ModalService, newsFactory) {
+			
 			var params = null;
 			$scope.tableData = {
 				url: 'getAllDocuments',
@@ -22,6 +22,15 @@ define(['app'], function(dmsApp) {
 					data: null
 				}
 			};
+			
+			$scope.listNews = [];
+			var params = null;
+    		newsFactory.getListNews(params)
+    		.then(function successCallback(response){
+    			$scope.listNews = response.data.listNews;
+    		  }, function errorCallback(response){
+    		  		console.log(response.data);
+    		  })
 
 			$scope.btnSearch = function() {
 				$scope.tableData.validForm = true;
@@ -102,7 +111,25 @@ define(['app'], function(dmsApp) {
 					});
 				});
 			}
+			
+			$scope.listNews = function(newsId) {
+				ModalService.showModal({
+					controller: "ListNewsController",
+					inputs: {
+						modalParams: {
+							newsId: newsId
+						}
+					}
 
+				}).then(function(modal) {
+
+					modal.element.modal({
+						backdrop: 'static',
+						keyboard: false
+					});
+				});
+			}
+			
 			$scope.deleteDocument = function(documentId) {
 				ModalService.showModal({
 					templateUrl: "deleteDocument.html",
@@ -296,4 +323,6 @@ define(['app'], function(dmsApp) {
 			}
 
 		})
+		
+		
 });

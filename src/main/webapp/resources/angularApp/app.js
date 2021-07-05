@@ -11,7 +11,7 @@ define(['require'], function(require) {
 		'commonFilterModule',
 		'commonDirectiveModule',
 		'documentFactoryModule',
-		'newsFactoryModule',
+		'newsFactoryModule'
 	])
 
 		.config(['$httpProvider', '$locationProvider',

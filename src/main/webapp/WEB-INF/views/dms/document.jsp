@@ -16,6 +16,12 @@
 						<div class="col-md-12 stretch-card">
 							<div class="card">
 								<div class="card-body">
+								<p>Breaking News </p>
+								<marquee>
+									<span 
+									data-ng-repeat="nws in listNews track by $index">
+									{{nws.newsTitle}} : {{nws.newsInformation}}. </span>
+								</marquee>
 									<h4>
 										<i class="mdi mdi-file-document menu-icon text-primary"></i>
 										Document List
@@ -310,6 +316,8 @@
 	</div>
 	<!-- /.modal-dialog -->
 </div>
+
+
 </script>
 
 <script type="text/ng-template" id="deleteDocument.html">
@@ -353,6 +361,7 @@
 	<!-- /.modal-dialog -->
 </div>
 </script>
+
 
 				<!-- partial:partials/_footer.html -->
 				<jsp:include page="partials/footer.jsp" />

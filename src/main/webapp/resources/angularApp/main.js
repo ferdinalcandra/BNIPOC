@@ -52,7 +52,10 @@ require([
 	'./controller/dms/document',
 	'./factory/dms/document',
 	'./controller/dms/news',
-	'./factory/dms/news'
+	'./factory/dms/news',
+	'./controller/dms/exam',
+	'./controller/dms/news',
+	'./factory/dms/exam'
 	],
 	function () {
 		angular.bootstrap(document, ['dmsApp']);

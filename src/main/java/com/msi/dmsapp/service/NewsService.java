@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
@@ -19,6 +20,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.msi.dmsapp.entity.DocumentEntity;
 import com.msi.dmsapp.entity.NewsEntity;
+import com.msi.dmsapp.repository.NewsDao;
 import com.msi.dmsapp.repository.NewsRepository;
 
 @Service
@@ -26,6 +28,9 @@ public class NewsService {
 
 	@Autowired
 	private NewsRepository newsRepository;
+	
+	@Autowired
+	private NewsDao newsDao;
 
 	public List<NewsEntity> findAll(String search, int page, int limit) throws JsonMappingException, JsonProcessingException{
 		String newsTitle = "";
@@ -132,6 +137,11 @@ public class NewsService {
 			e.getMessage();
 		}
 		return status;
+	}
+
+
+	public List<NewsEntity> listNews(Session session, Map<String, Object> paramsnews) {
+		return newsDao.listNews(session, paramsnews);
 	}
 
 }

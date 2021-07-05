@@ -23,6 +23,13 @@ define(['app'], function(dmsApp) {
 						}
 					});
 				},
+	            getListNews: function (params) {
+	                return $http({
+	                    method: 'GET',
+	                    url: 'getNews',
+	                    params:params
+	                });
+	            },
 				deleteNews: function(params) {
 					return $http({
 						method: 'POST',

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import com.msi.dmsapp.entity.DocumentEntity;
 
+
 @Repository
 public interface DocumentRepository extends JpaRepository<DocumentEntity, String> {
 

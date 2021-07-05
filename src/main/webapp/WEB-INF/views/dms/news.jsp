@@ -20,7 +20,6 @@
 										<i class="mdi mdi-newspaper menu-icon text-primary"></i>
 										News List
 									</h4>
-
 									<form class="forms-sample"
 										style="margin-top: 20px; margin-bottom: 20px">
 										<div class="form-group row">

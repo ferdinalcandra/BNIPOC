@@ -4,18 +4,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
-import com.msi.dmsapp.entity.DocumentEntity;
 import com.msi.dmsapp.entity.NewsEntity;
 import com.msi.dmsapp.service.NewsService;
 
@@ -25,6 +27,10 @@ public class NewsController {
 	@Autowired
 	private NewsService newsService;
 
+	@Autowired 
+	private SessionFactory sessionFactory;
+	
+	
 	@GetMapping("/getAllNews")
 	public ResponseEntity<Map<String, Object>> findAll(@RequestParam(value = "limit", required = false) String limit,
 			@RequestParam(value = "start", required = false) String start,
@@ -43,6 +49,21 @@ public class NewsController {
 		returnData.put("total", totalResult);
 		return new ResponseEntity<Map<String, Object>>(returnData, HttpStatus.OK);
 	}
+	
+	@RequestMapping("getNews")
+	public ResponseEntity<Map<String, Object>> getNews(){
+		
+	Session session = sessionFactory.openSession();
+	Map<String, Object> paramsnews = new HashMap<>();	
+	//params_barang.put("remove", true);
+	List<NewsEntity> listNews = newsService.listNews(session, paramsnews);
+	session.close();
+	Map<String, Object> returnData = new HashMap<String, Object>();
+	returnData.put("success", true);
+	returnData.put("listNews", listNews);
+	return new ResponseEntity<Map<String, Object>>(returnData, HttpStatus.OK);
+	}
+	
 	
 	@PostMapping("/insertNews")
 	public ResponseEntity<Map<String, Object>> insertNews(@RequestBody Map<String, Object> params) {
@@ -83,4 +104,6 @@ public class NewsController {
 		returnData.put("success", status);
 		return new ResponseEntity<Map<String, Object>>(returnData, HttpStatus.OK);
 	}
+	
+	
 }
