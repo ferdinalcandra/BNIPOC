@@ -25,4 +25,22 @@
 
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/assets/css/animate.css">
+	
+<style>
+
+	.document-editor {
+	    border: 1px solid #DFE4E6;
+	    border-bottom-color: #cdd0d2;
+	    border-right-color: #cdd0d2;
+	    border-radius: 2px;
+	    min-height: 700px;
+	    display: flex;
+	    flex-flow: column nowrap;
+	    box-shadow: 2px 2px 2px rgb(0 0 0 / 10%);
+	}
+	#editor {
+	    min-height: 700px;
+	}
+
+</style>	
 </head>

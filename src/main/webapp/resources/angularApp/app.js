@@ -10,7 +10,8 @@ define(['require'], function(require) {
 		'angularModalService',
 		'commonFilterModule',
 		'commonDirectiveModule',
-		'documentFactoryModule'
+		'documentFactoryModule',
+		'generateDocumentFactoryModule'
 	])
 
 		.config(['$httpProvider', '$locationProvider',

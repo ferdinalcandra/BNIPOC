@@ -20,6 +20,11 @@ public class IndexController {
 		return new ModelAndView("dms/document");
 	}
 	
+	@GetMapping("/generate_document")
+	public ModelAndView generateDocument() {
+		return new ModelAndView("dms/generate_document");
+	}
+	
 	@GetMapping("/")
 	public ModelAndView index() {
 		return new ModelAndView("/dms/document");
@@ -28,19 +33,21 @@ public class IndexController {
 	@GetMapping("/login")
 	public ModelAndView login(HttpServletRequest request) {
 		String referrer = request.getHeader("Referer");
-		if (referrer != null) {
-			if (!referrer.contains("/dms/login")) {
-				request.getSession().setAttribute("url_prior_login", referrer);
-			} else {
-				return new ModelAndView("/dms/login");
-			}
-		}
-//		return new ModelAndView("/dms/login");
 		if (securityConfig.isLogged()) {
+			if (referrer != null) {
+				if (!referrer.contains("/dms/login")) {
+					request.getSession().setAttribute("url_prior_login", referrer);
+				} 
+			} 
 			return new ModelAndView("redirect:/document");
 		} else {
-			return new ModelAndView("/dms/login");
+			if (referrer != null) {
+				if (!referrer.contains("/dms/login")) {
+					request.getSession().setAttribute("url_prior_login", referrer);
+				} 
+			}
 		}
+		return new ModelAndView("/dms/login");
 	}
 
 }

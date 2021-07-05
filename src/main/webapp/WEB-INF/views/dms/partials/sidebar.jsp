@@ -20,5 +20,10 @@
 				class="menu-title">Document count </span></a>
 		</li>
 		
+		<li class="nav-item"><a class="nav-link" href="generate_document"> <i
+				class="mdi mdi mdi-file-pdf menu-icon"></i> <span
+				class="menu-title">Generate Document </span></a>
+		</li>
+		
 	</ul>
 </nav>

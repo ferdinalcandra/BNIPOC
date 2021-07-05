@@ -23,6 +23,8 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper:9.0.45'
 	implementation 'javax.servlet:jstl:1.2'
+	implementation 'com.itextpdf:itextpdf:5.5.13.2'
+	implementation 'com.itextpdf.tool:xmlworker:5.5.13.2'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
 }

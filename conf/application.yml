@@ -25,4 +25,4 @@ server:
   servlet: 
     context-path: /dms
     session:
-      timeout: 3m
+      timeout: 1m

@@ -10,6 +10,12 @@ define(['app'], function(dmsApp) {
 					url: 'dms/document',
 					templateUrl: 'dms/document',
 					controller: 'documentController'
+				}),
+			$stateProvider
+				.state('generate_document', {
+					url: 'dms/generate_document',
+					templateUrl: 'dms/generate_document',
+					controller: 'generateDocumentController'
 				})
 		}])
 
